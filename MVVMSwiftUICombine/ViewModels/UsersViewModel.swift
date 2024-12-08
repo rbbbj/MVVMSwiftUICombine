@@ -37,7 +37,7 @@ final class UsersViewModel: UsersViewModelProtocol, ObservableObject {
                     switch completion {
                     case .finished:
                         break
-                    case .failure(let error):
+                    case .failure:
                         self.loadState = .failed
                     }
                 }, receiveValue: { [weak self] usersResponse in
@@ -49,6 +49,8 @@ final class UsersViewModel: UsersViewModelProtocol, ObservableObject {
                             users.append(user)
                         }
                     }
+                    
+                    RealmManager.shared.add(users: users)
                     
                     loadState = .loaded(users)
                 })
