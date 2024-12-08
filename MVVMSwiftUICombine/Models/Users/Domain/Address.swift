@@ -22,11 +22,11 @@ struct Address {
               let suite = response.suite,
               let city = response.city,
               let zipcode = response.zipcode else {
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
 
         guard let lat = (response.geo?.lat), let lng = (response.geo?.lng) else {
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
         
         self.street = street
@@ -42,7 +42,7 @@ struct Address {
             let city = entity.city,
             let zipcode = entity.zipcode,
             let geo = try entity.geo?.asDomain() else {
-                throw DataLoadingError.invalidData
+                throw JSONPlaceholderError.invalidData
         }
 
         self.street = street

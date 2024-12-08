@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct Users: View {
-    @StateObject var viewModel: UsersViewModel = UsersViewModel()
+    @StateObject var viewModel: UsersViewModel = UsersViewModel(jSONPlaceholderFetcher: JSONPlaceholderFetcher())
     
     var body: some View {
         NavigationStack {
@@ -9,10 +9,10 @@ struct Users: View {
                 switch viewModel.loadState {
                 case .idle:
                     Color.clear.onAppear {
-                            Task {
-                                await viewModel.getUsers()
-                            }
+                        Task {
+                            viewModel.fetchUsers()
                         }
+                    }
                 case .loading:
                     VStack {
                         Text("Downloading…")
@@ -26,7 +26,7 @@ struct Users: View {
                     List(users, rowContent: UserRow.init)
                         .refreshable {
                             Task {
-                                await viewModel.getUsers()
+                                viewModel.fetchUsers()
                             }
                         }
                 }

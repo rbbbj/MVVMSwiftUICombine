@@ -33,13 +33,13 @@ struct User: Identifiable {
               let email = response.email,
               let phone = response.phone,
               let website = response.website else {
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
         
         guard let geo = response.address?.geo,
               let lat = geo.lat,
               let lng = geo.lng else {
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
         let location = Location(lat: lat, lng: lng)
         
@@ -47,7 +47,7 @@ struct User: Identifiable {
               let suite = response.address?.suite,
               let city = response.address?.city,
               let zipcode = response.address?.zipcode else {
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
         let address = Address(street: street, suite: suite, city: city, zipcode: zipcode, geo: location)
         
@@ -55,7 +55,7 @@ struct User: Identifiable {
               let catchPhrase = response.company?.catchPhrase,
               let bs = response.company?.bs else {
             
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
         let company = Company(name: companyName, catchPhrase: catchPhrase, bs: bs)
         
@@ -78,7 +78,7 @@ struct User: Identifiable {
               let website = entity.website,
               let address = try entity.address?.asDomain(),
               let company = try entity.company?.asDomain() else {
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
         
         self.id = id

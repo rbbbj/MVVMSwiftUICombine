@@ -10,7 +10,7 @@ struct Location {
     init(from response: LocationResponse) throws {
         guard let lat = response.lat,
               let lng = response.lng else {
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
         
         self.lat = lat
@@ -20,7 +20,7 @@ struct Location {
     init(from entity: RMLocation) throws {
         guard let lat = entity.lat,
             let lng = entity.lng else {
-                throw DataLoadingError.invalidData
+                throw JSONPlaceholderError.invalidData
         }
         
         self.lat = lat

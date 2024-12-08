@@ -15,7 +15,7 @@ struct Company {
         guard let name = response.name,
         let catchPhrase = response.catchPhrase,
         let bs = response.bs else {
-            throw DataLoadingError.invalidData
+            throw JSONPlaceholderError.invalidData
         }
         
         self.name = name
@@ -27,7 +27,7 @@ struct Company {
         guard let name = entity.name,
             let catchPhrase = entity.catchPhrase,
             let bs = entity.bs else {
-                throw DataLoadingError.invalidData
+                throw JSONPlaceholderError.invalidData
         }
 
         self.name = name

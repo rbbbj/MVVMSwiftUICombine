@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 import SwiftfulLoadingIndicators
 
 enum LoadState {
@@ -9,37 +10,48 @@ enum LoadState {
 }
 
 protocol UsersViewModelProtocol {
-    func getUsers() async
+    func fetchUsers() async
 }
 
 @MainActor
 final class UsersViewModel: UsersViewModelProtocol, ObservableObject {
     
-    @Published var users = [User]()
     @Published var loadState = LoadState.idle
     
-    func getUsers() async {
+    private var disposables = Set<AnyCancellable>()
+    private let jSONPlaceholderFetcher: JSONPlaceholderFetchable
+    
+    init(jSONPlaceholderFetcher: JSONPlaceholderFetchable) {
+        self.jSONPlaceholderFetcher = jSONPlaceholderFetcher
+        fetchUsers()
+    }
+    
+    func fetchUsers() {
+        
         loadState = .loading
         
-        do {
-            let url = URL(string: "https://jsonplaceholder.typicode.com/users")!
-            let (data, _) = try await URLSession.shared.data(from: url)
-            
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            
-            let usersResponse = try decoder.decode([UserResponse].self, from: data)//.sorted()
-            
-            users = [User]()
-            usersResponse.forEach {
-                if let user = try? User(from: $0) {
-                    users.append(user)
-                }
-            }
-            
-            loadState = .loaded(users)
-        } catch {
-            loadState = .failed
-        }
+        jSONPlaceholderFetcher.fetchUsers()
+            .receive(on: DispatchQueue.main)
+            .sink(
+                receiveCompletion: { completion in
+                    switch completion {
+                    case .finished:
+                        break
+                    case .failure(let error):
+                        self.loadState = .failed
+                    }
+                }, receiveValue: { [weak self] usersResponse in
+                    guard let self = self else { return }
+                    
+                    var users = [User]()
+                    usersResponse.forEach {
+                        if let user = try? User(from: $0) {
+                            users.append(user)
+                        }
+                    }
+                    
+                    loadState = .loaded(users)
+                })
+            .store(in: &disposables)
     }
 }
