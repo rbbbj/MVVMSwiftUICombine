@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1E59AF9C880DE01FD40F6FF2 /* Pods_MVVMSwiftUICombine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6429C343EC50D39FCE2EB73 /* Pods_MVVMSwiftUICombine.framework */; };
+		6714EBA52D1F1EF10001CEA5 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714EB952D1F1EF10001CEA5 /* Post.swift */; };
+		6714EBAD2D1F1EF10001CEA5 /* PostResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714EB9F2D1F1EF10001CEA5 /* PostResponse.swift */; };
+		6714EBAF2D1F1EF10001CEA5 /* RMPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6714EB9A2D1F1EF10001CEA5 /* RMPost.swift */; };
 		6752A1752CFF7512007A44E0 /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6752A1722CFF7512007A44E0 /* UsersView.swift */; };
 		6752A1762CFF7512007A44E0 /* MVVMSwiftUICombineApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6752A1732CFF7512007A44E0 /* MVVMSwiftUICombineApp.swift */; };
 		6752A1772CFF7512007A44E0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6752A16F2CFF7512007A44E0 /* Preview Assets.xcassets */; };
@@ -38,6 +41,9 @@
 /* Begin PBXFileReference section */
 		5BA6FAF22D06B03EF9145743 /* Pods-MVVMSwiftUICombine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMSwiftUICombine.release.xcconfig"; path = "Target Support Files/Pods-MVVMSwiftUICombine/Pods-MVVMSwiftUICombine.release.xcconfig"; sourceTree = "<group>"; };
 		6684675944F5C8FCF8EAF3B2 /* Pods-MVVMSwiftUICombine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMSwiftUICombine.debug.xcconfig"; path = "Target Support Files/Pods-MVVMSwiftUICombine/Pods-MVVMSwiftUICombine.debug.xcconfig"; sourceTree = "<group>"; };
+		6714EB952D1F1EF10001CEA5 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		6714EB9A2D1F1EF10001CEA5 /* RMPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMPost.swift; sourceTree = "<group>"; };
+		6714EB9F2D1F1EF10001CEA5 /* PostResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostResponse.swift; sourceTree = "<group>"; };
 		6752A15E2CFF5085007A44E0 /* MVVMSwiftUICombine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVVMSwiftUICombine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6752A16F2CFF7512007A44E0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6752A1712CFF7512007A44E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -79,6 +85,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6714EB992D1F1EF10001CEA5 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				6714EB952D1F1EF10001CEA5 /* Post.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		6714EB9E2D1F1EF10001CEA5 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				6714EB9A2D1F1EF10001CEA5 /* RMPost.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
+		6714EBA32D1F1EF10001CEA5 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				6714EB9F2D1F1EF10001CEA5 /* PostResponse.swift */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		6714EBA42D1F1EF10001CEA5 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				6714EB992D1F1EF10001CEA5 /* Domain */,
+				6714EB9E2D1F1EF10001CEA5 /* Realm */,
+				6714EBA32D1F1EF10001CEA5 /* External */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
 		6752A1552CFF5085007A44E0 = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +234,7 @@
 		6752A1AD2D004BD7007A44E0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6714EBA42D1F1EF10001CEA5 /* Post */,
 				6752A17A2CFF751F007A44E0 /* Users */,
 			);
 			path = Models;
@@ -377,10 +418,13 @@
 				6752A1922CFF7535007A44E0 /* UserResponse.swift in Sources */,
 				6752A1932CFF7535007A44E0 /* Company.swift in Sources */,
 				6752A1A32CFF7B18007A44E0 /* UserRow.swift in Sources */,
+				6714EBAD2D1F1EF10001CEA5 /* PostResponse.swift in Sources */,
 				6752A1942CFF7535007A44E0 /* RMUser.swift in Sources */,
 				6752A1952CFF7535007A44E0 /* RMLocation.swift in Sources */,
+				6714EBAF2D1F1EF10001CEA5 /* RMPost.swift in Sources */,
 				6752A1752CFF7512007A44E0 /* UsersView.swift in Sources */,
 				6752A1762CFF7512007A44E0 /* MVVMSwiftUICombineApp.swift in Sources */,
+				6714EBA52D1F1EF10001CEA5 /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
