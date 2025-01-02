@@ -23,13 +23,34 @@ extension JSONPlaceholderFetcher: JSONPlaceholderFetchable {
                 .eraseToAnyPublisher()
         }
         
-        return URLSession.shared.dataTaskPublisher(for: url)
+        return URLSession.shared.dataTaskPublisher(for: url) //koko - use session from init
             .map(\.data) // key-path-expression.
             .decode(type: [UserResponse].self, decoder: JSONDecoder())
             .mapError({ error in
                     .networkFailure
             })
             .eraseToAnyPublisher()
+    }
+    
+    func fetchUsers() async throws -> [User] {
+        
+        let components = makeUsersComponents()
+        guard let url = components.url else {
+            throw JSONPlaceholderError.networkFailure
+        }
+
+        let (data, _) = try await URLSession.shared.data(from: url)
+
+        let usersResponse = try JSONDecoder().decode([UserResponse].self, from: data)
+        
+        var users = [User]()
+        usersResponse.forEach {
+            if let user = try? User(from: $0) {
+                users.append(user)
+            }
+        }
+
+        return users
     }
 }
 
@@ -43,16 +64,16 @@ private extension JSONPlaceholderFetcher {
         }
     }
     
-    func makePostsComponents() -> URLComponents {
+    func makeUsersComponents() -> URLComponents {
         var components = makeCommonComponents()
-        components.path = JSONPlaceholderAPI.Path.posts
+        components.path = JSONPlaceholderAPI.Path.users
         
         return components
     }
     
-    func makeUsersComponents() -> URLComponents {
+    func makePostsComponents() -> URLComponents {
         var components = makeCommonComponents()
-        components.path = JSONPlaceholderAPI.Path.users
+        components.path = JSONPlaceholderAPI.Path.posts
         
         return components
     }

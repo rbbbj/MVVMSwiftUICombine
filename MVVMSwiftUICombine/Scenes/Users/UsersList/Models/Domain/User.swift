@@ -91,15 +91,14 @@ struct User: Identifiable {
         self.company = company
     }
     
-    /// An example property that's used for Xcode previewing.
-    static let example = User(id: 9,
-                              name: "Glenna Reichert",
-                              username: "Delphine",
-                              email: "Chaim_McDermott@dana.io",
-                              phone: "(775)976-6794 x41206",
-                              website: "conrad.com",
-                              address: Address(street: "Dayna Park", suite: "Suite 449", city: "Bartholomebury", zipcode: "76495-3109", geo: Location(lat: "24.6463", lng: "-168.8889")),
-                              company: Company(name: "Yost and Sons", catchPhrase: "Switchable contextually-based project", bs: "aggregate real-time technologies"))
+    static let mockUser = User(id: 9,
+                               name: "Glenna Reichert",
+                               username: "Delphine",
+                               email: "Chaim_McDermott@dana.io",
+                               phone: "(775)976-6794 x41206",
+                               website: "conrad.com",
+                               address: Address(street: "Dayna Park", suite: "Suite 449", city: "Bartholomebury", zipcode: "76495-3109", geo: Location(lat: "24.6463", lng: "-168.8889")),
+                               company: Company(name: "Yost and Sons", catchPhrase: "Switchable contextually-based project", bs: "aggregate real-time technologies"))
     
 }
 
@@ -108,6 +107,19 @@ struct User: Identifiable {
 extension User {
     func asRealm() -> RMUser { return RMUser(from: self) }
 }
+
+//MARK: - Hashable
+
+extension User: Hashable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+    
 
 //MARK: - Helpers
 

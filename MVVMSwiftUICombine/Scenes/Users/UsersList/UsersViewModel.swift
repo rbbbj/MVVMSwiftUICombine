@@ -10,20 +10,27 @@ enum LoadState {
 }
 
 protocol UsersViewModelProtocol {
+    func navigateUserDetails()
     func fetchUsers() async
 }
 
-@MainActor
 final class UsersViewModel: UsersViewModelProtocol, ObservableObject {
     
     @Published var loadState = LoadState.idle
     
+    private let router: UsersRouter
+    
     private var disposables = Set<AnyCancellable>()
     private let jSONPlaceholderFetcher: JSONPlaceholderFetchable
     
-    init(jSONPlaceholderFetcher: JSONPlaceholderFetchable) {
+    init(jSONPlaceholderFetcher: JSONPlaceholderFetchable, router: UsersRouter) {
         self.jSONPlaceholderFetcher = jSONPlaceholderFetcher
+        self.router = router
         fetchUsers()
+    }
+    
+    func navigateUserDetails() {
+        self.router.routeToUserDetails()
     }
     
     func fetchUsers() {
