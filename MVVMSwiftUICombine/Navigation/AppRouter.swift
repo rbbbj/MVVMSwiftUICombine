@@ -1,6 +1,7 @@
 import SwiftUI
 
 class AppRouter: ObservableObject {
+    
     @Published var paths: NavigationPath
     
     init(paths: NavigationPath = NavigationPath()) {
@@ -17,14 +18,6 @@ class AppRouter: ObservableObject {
         let postsRouter = PostsRouter(rootCoordinator: self, post: Post.mockPost)
         return postsRouter
     }
-    
-    
-    
-//    func resolveInitialRouter() -> any Routable {
-//        let homePageRouter = HomePageRouter(rootCoordinator: self, user: Datasource.mockUser)
-//        return homePageRouter
-//    }
-    
 }
 
 // MARK: NavigationCoordinator implementation

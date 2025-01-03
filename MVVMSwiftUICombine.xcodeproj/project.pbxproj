@@ -196,6 +196,7 @@
 		6752A1B02D004EC1007A44E0 /* Users */ = {
 			isa = PBXGroup;
 			children = (
+				67F6643C2D21E54200929C53 /* Models */,
 				67F664732D2315B900929C53 /* UsersList */,
 				67F664752D2315F500929C53 /* UserDetails */,
 			);
@@ -233,6 +234,7 @@
 		67F6639C2D21990600929C53 /* Posts */ = {
 			isa = PBXGroup;
 			children = (
+				67F664632D21E54C00929C53 /* Models */,
 				67F664832D25EDD300929C53 /* PostsList */,
 				67F664822D25EDCC00929C53 /* PostsDetails */,
 			);
@@ -319,7 +321,6 @@
 		67F664732D2315B900929C53 /* UsersList */ = {
 			isa = PBXGroup;
 			children = (
-				67F6643C2D21E54200929C53 /* Models */,
 				6752A1722CFF7512007A44E0 /* UsersView.swift */,
 				67F411582D00700C00C2FE7E /* UsersViewModel.swift */,
 				67F664232D21D1D800929C53 /* UsersRouter.swift */,
@@ -350,7 +351,6 @@
 		67F664832D25EDD300929C53 /* PostsList */ = {
 			isa = PBXGroup;
 			children = (
-				67F664632D21E54C00929C53 /* Models */,
 				67F6647E2D25ED1200929C53 /* PostsView.swift */,
 				67F6647F2D25ED1200929C53 /* PostsViewModel.swift */,
 				67F664882D26FAFE00929C53 /* PostsRouter.swift */,

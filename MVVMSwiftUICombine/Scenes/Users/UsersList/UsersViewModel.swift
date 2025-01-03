@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 import SwiftfulLoadingIndicators
 
-enum LoadState {
+enum LoadUsersState {
     case idle
     case loading
     case failed
@@ -16,7 +16,7 @@ protocol UsersViewModelProtocol {
 
 final class UsersViewModel: UsersViewModelProtocol, ObservableObject {
     
-    @Published var loadState = LoadState.idle
+    @Published var loadState = LoadUsersState.idle
     
     private let router: UsersRouter
     

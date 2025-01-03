@@ -3,6 +3,9 @@ import Combine
 
 protocol JSONPlaceholderFetchable {
     func fetchUsers() -> AnyPublisher<[UserResponse], JSONPlaceholderError>
+    func fetchUsers() async throws -> [User]
+    func fetchPosts() -> AnyPublisher<[PostResponse], JSONPlaceholderError>
+    func fetchPosts() async throws -> [Post]
 }
 
 class JSONPlaceholderFetcher {
@@ -51,6 +54,44 @@ extension JSONPlaceholderFetcher: JSONPlaceholderFetchable {
         }
 
         return users
+    }
+    
+    func fetchPosts() -> AnyPublisher<[PostResponse], JSONPlaceholderError>  {
+        let components = makePostsComponents()
+        guard let url = components.url else {
+            let error = JSONPlaceholderError.networkFailure
+            return Fail(error: error)
+                .eraseToAnyPublisher()
+        }
+        
+        return URLSession.shared.dataTaskPublisher(for: url) //koko - use session from init
+            .map(\.data) // key-path-expression.
+            .decode(type: [PostResponse].self, decoder: JSONDecoder())
+            .mapError({ error in
+                    .networkFailure
+            })
+            .eraseToAnyPublisher()
+    }
+    
+    func fetchPosts() async throws -> [Post] {
+        
+        let components = makePostsComponents()
+        guard let url = components.url else {
+            throw JSONPlaceholderError.networkFailure
+        }
+
+        let (data, _) = try await URLSession.shared.data(from: url)
+
+        let postsResponse = try JSONDecoder().decode([PostResponse].self, from: data)
+        
+        var posts = [Post]()
+        postsResponse.forEach {
+            if let post = try? Post(from: $0) {
+                posts.append(post)
+            }
+        }
+
+        return posts
     }
 }
 

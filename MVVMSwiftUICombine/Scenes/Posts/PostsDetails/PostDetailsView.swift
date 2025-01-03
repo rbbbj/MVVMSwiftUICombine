@@ -3,12 +3,16 @@ import SwiftUI
 struct PostDetailsView: View {
     
     @StateObject private var viewModel = PostDetailsViewModel()
+    var post: Post
     
     var body: some View {
-        Text("User details")
+        Text("\(post.body)")
+            .multilineTextAlignment(.leading)
+            .lineLimit(nil)
+            .padding()
     }
 }
 
-//#Preview {
-//    UserDetailsView(user: User.example)
-//}
+#Preview {
+    PostDetailsView(post: Post.mockPost)
+}

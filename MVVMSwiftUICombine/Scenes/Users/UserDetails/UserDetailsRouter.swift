@@ -12,7 +12,8 @@ class UserDetailsRouter {
         self.user = user
     }
     
-//    func routeToSomePage() {}
+    // add routing if neede
+    // func routeToSomePage() {}
     
 }
 
@@ -22,7 +23,7 @@ extension UserDetailsRouter: Routable {
     
     func makeView() -> AnyView {
         let viewModel = UserDetailsViewModel()
-        let view = UserDetailsView()
+        let view = UserDetailsView(user: user)
         return AnyView(view)
     }
 }
@@ -38,9 +39,3 @@ extension UserDetailsRouter {
         hasher.combine(self.user.id)
     }
 }
-
-//// MARK: - Router mock for preview
-//
-//extension UsersRouter {
-//    static let mock: UsersRouter = .init(rootCoordinator: AppRouter(), user: Datasource.mockUser)
-//}

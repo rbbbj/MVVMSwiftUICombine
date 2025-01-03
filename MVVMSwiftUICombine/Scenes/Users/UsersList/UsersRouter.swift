@@ -3,7 +3,7 @@ import SwiftUI
 class UsersRouter {
     
     private let rootCoordinator: NavigationCoordinator
-
+    
     var user: User
     
     
@@ -40,9 +40,3 @@ extension UsersRouter {
         hasher.combine(self.user.id)
     }
 }
-
-//// MARK: - Router mock for preview
-//
-//extension UsersRouter {
-//    static let mock: UsersRouter = .init(rootCoordinator: AppRouter(), user: Datasource.mockUser)
-//}

@@ -10,8 +10,9 @@ class PostDetailsRouter {
         self.rootCoordinator = rootCoordinator
         self.post = post
     }
-    
-//    func routeToSomePage() {}
+
+    // add routing if neede
+    // func routeToSomePage() {}
     
 }
 
@@ -21,7 +22,7 @@ extension PostDetailsRouter: Routable {
     
     func makeView() -> AnyView {
         let viewModel = PostDetailsViewModel()
-        let view = PostDetailsView()
+        let view = PostDetailsView(post: post)
         return AnyView(view)
     }
 }
@@ -37,9 +38,3 @@ extension PostDetailsRouter {
         hasher.combine(self.post.id)
     }
 }
-
-//// MARK: - Router mock for preview
-//
-//extension UsersRouter {
-//    static let mock: UsersRouter = .init(rootCoordinator: AppRouter(), user: Datasource.mockUser)
-//}

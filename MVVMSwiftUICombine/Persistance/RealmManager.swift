@@ -46,4 +46,30 @@ final class RealmManager {
             realm.add(rmUsers, update: .all)
         }
     }
+    
+    // MARK: - Post
+    
+    func getPosts() -> [Post]? {
+        guard let realm = localRealm else {
+            return nil
+        }
+        
+        let rmPosts = realm.objects(RMPost.self)
+        if rmPosts.isEmpty {
+            return nil
+        }
+        
+        return rmPosts.compactMap{ try? $0.asDomain() }
+    }
+    
+    func add(posts: [Post]) {
+        guard let realm = localRealm else {
+            return
+        }
+        
+        try? realm.write {
+            let rmPosts = posts.map({ $0.asRealm() })
+            realm.add(rmPosts, update: .all)
+        }
+    }
 }

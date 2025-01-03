@@ -6,7 +6,6 @@ class PostsRouter {
     
     var post: Post
     
-    
     init(rootCoordinator: NavigationCoordinator, post: Post) {
         self.rootCoordinator = rootCoordinator
         self.post = post
@@ -23,7 +22,7 @@ class PostsRouter {
 extension PostsRouter: Routable {
     
     func makeView() -> AnyView {
-        let viewModel = PostsViewModel()
+        let viewModel = PostsViewModel(jSONPlaceholderFetcher: JSONPlaceholderFetcher(), router: self)
         let view = PostsView(viewModel: viewModel)
         return AnyView(view)
     }
@@ -40,9 +39,3 @@ extension PostsRouter {
         hasher.combine(self.post.id)
     }
 }
-
-//// MARK: - Router mock for preview
-//
-//extension UsersRouter {
-//    static let mock: UsersRouter = .init(rootCoordinator: AppRouter(), user: Datasource.mockUser)
-//}
