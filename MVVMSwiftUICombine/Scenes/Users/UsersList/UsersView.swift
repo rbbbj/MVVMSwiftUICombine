@@ -6,35 +6,44 @@ struct UsersView: View {
     @State private var selectedUser: User?
     
     var body: some View {
-        Group {
-            switch viewModel.loadState {
-            case .idle:
-                Color.clear.onAppear {
-                    Task {
-                        viewModel.fetchUsers()
+        NavigationView {
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView("Loading users...")
+                        .scaleEffect(1.5)
+                        .padding()
+                } else if let errorMessage = viewModel.errorMessage {
+                    VStack {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        
+                        Button(action: {
+                            Task {
+                                await viewModel.fetchUsers()
+                            }
+                        }) {
+                            Text("Retry")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
                     }
-                }
-            case .loading:
-                VStack {
-                    Text("Downloading…")
-                    ProgressView()
-                }
-            case .failed:
-                VStack {
-                    Text("Failed to download users")
-                }
-            case .loaded(let users):
-                List(users) { user in
-                    Button {
-                        selectedUser = user
-                        viewModel.navigateUserDetails()
-                    } label: {
-                        UserRow(user: user)
+                } else {
+                    List(viewModel.users) { user in
+                        Button {
+                            selectedUser = user
+                            viewModel.navigateUserDetails()
+                        } label: {
+                            UserRow(user: user)
+                        }
                     }
                 }
             }
+            .navigationTitle("Users")
         }
-        .navigationTitle("Users")
     }
 }
 
@@ -42,7 +51,7 @@ struct UserRow: View {
     let user: User
     
     var body: some View {
-        Text("User: \(user.name)")
+        Text(user.name)
             .foregroundColor(.black)
     }
 }

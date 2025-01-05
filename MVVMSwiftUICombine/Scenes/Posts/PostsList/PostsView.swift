@@ -6,35 +6,44 @@ struct PostsView: View {
     @State private var selectedPost: Post?
     
     var body: some View {
-        Group {
-            switch viewModel.loadState {
-            case .idle:
-                Color.clear.onAppear {
-                    Task {
-                        viewModel.fetchPosts()
+        NavigationView {
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView("Loading posts...")
+                        .scaleEffect(1.5)
+                        .padding()
+                } else if let errorMessage = viewModel.errorMessage {
+                    VStack {
+                        Text(errorMessage)
+                            .foregroundColor(.red)
+                            .multilineTextAlignment(.center)
+                            .padding()
+                        
+                        Button(action: {
+                            Task {
+                                await viewModel.fetchPosts()
+                            }
+                        }) {
+                            Text("Retry")
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
                     }
-                }
-            case .loading:
-                VStack {
-                    Text("Downloading…")
-                    ProgressView()
-                }
-            case .failed:
-                VStack {
-                    Text("Failed to download posts")
-                }
-            case .loaded(let posts):
-                List(posts) { post in
-                    Button {
-                        selectedPost = post
-                        viewModel.navigateToPostDetails()
-                    } label: {
-                        PostRow(post: post)
+                } else {
+                    List(viewModel.posts ) { post in
+                        Button {
+                            selectedPost = post
+                            viewModel.navigateToPostDetails()
+                        } label: {
+                            PostRow(post: post)
+                        }
                     }
                 }
             }
+            .navigationTitle("Posts")
         }
-        .navigationTitle("Posts")
     }
 }
 
@@ -42,7 +51,7 @@ struct PostRow: View {
     let post: Post
     
     var body: some View {
-        Text("Post: \(post.title)")
+        Text(post.title)
             .lineLimit(nil)
             .foregroundColor(.black)
     }

@@ -1,10 +1,7 @@
 import Foundation
-import Combine
 
 protocol JSONPlaceholderFetchable {
-    func fetchUsers() -> AnyPublisher<[UserResponse], JSONPlaceholderError>
     func fetchUsers() async throws -> [User]
-    func fetchPosts() -> AnyPublisher<[PostResponse], JSONPlaceholderError>
     func fetchPosts() async throws -> [Post]
 }
 
@@ -18,32 +15,15 @@ class JSONPlaceholderFetcher {
 
 extension JSONPlaceholderFetcher: JSONPlaceholderFetchable {
     
-    func fetchUsers() -> AnyPublisher<[UserResponse], JSONPlaceholderError>  {
-        let components = makeUsersComponents()
-        guard let url = components.url else {
-            let error = JSONPlaceholderError.networkFailure
-            return Fail(error: error)
-                .eraseToAnyPublisher()
-        }
-        
-        return URLSession.shared.dataTaskPublisher(for: url) //koko - use session from init
-            .map(\.data) // key-path-expression.
-            .decode(type: [UserResponse].self, decoder: JSONDecoder())
-            .mapError({ error in
-                    .networkFailure
-            })
-            .eraseToAnyPublisher()
-    }
-    
     func fetchUsers() async throws -> [User] {
         
         let components = makeUsersComponents()
         guard let url = components.url else {
             throw JSONPlaceholderError.networkFailure
         }
-
+        
         let (data, _) = try await URLSession.shared.data(from: url)
-
+        
         let usersResponse = try JSONDecoder().decode([UserResponse].self, from: data)
         
         var users = [User]()
@@ -52,25 +32,8 @@ extension JSONPlaceholderFetcher: JSONPlaceholderFetchable {
                 users.append(user)
             }
         }
-
-        return users
-    }
-    
-    func fetchPosts() -> AnyPublisher<[PostResponse], JSONPlaceholderError>  {
-        let components = makePostsComponents()
-        guard let url = components.url else {
-            let error = JSONPlaceholderError.networkFailure
-            return Fail(error: error)
-                .eraseToAnyPublisher()
-        }
         
-        return URLSession.shared.dataTaskPublisher(for: url) //koko - use session from init
-            .map(\.data) // key-path-expression.
-            .decode(type: [PostResponse].self, decoder: JSONDecoder())
-            .mapError({ error in
-                    .networkFailure
-            })
-            .eraseToAnyPublisher()
+        return users
     }
     
     func fetchPosts() async throws -> [Post] {
@@ -79,9 +42,9 @@ extension JSONPlaceholderFetcher: JSONPlaceholderFetchable {
         guard let url = components.url else {
             throw JSONPlaceholderError.networkFailure
         }
-
+        
         let (data, _) = try await URLSession.shared.data(from: url)
-
+        
         let postsResponse = try JSONDecoder().decode([PostResponse].self, from: data)
         
         var posts = [Post]()
@@ -90,7 +53,7 @@ extension JSONPlaceholderFetcher: JSONPlaceholderFetchable {
                 posts.append(post)
             }
         }
-
+        
         return posts
     }
 }

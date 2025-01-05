@@ -144,12 +144,12 @@
 		6752A1742CFF7512007A44E0 /* MVVMSwiftUICombine */ = {
 			isa = PBXGroup;
 			children = (
-				6752A1732CFF7512007A44E0 /* MVVMSwiftUICombineApp.swift */,
 				6752A1AF2D004C22007A44E0 /* Scenes */,
 				67F663952D2196DC00929C53 /* Navigation */,
 				6752A19E2CFF7830007A44E0 /* Networking */,
 				6752A1A82CFFA674007A44E0 /* Persistance */,
 				6752A1982CFF77E8007A44E0 /* Helpers */,
+				6752A1732CFF7512007A44E0 /* MVVMSwiftUICombineApp.swift */,
 				6752A1712CFF7512007A44E0 /* Assets.xcassets */,
 				6752A1702CFF7512007A44E0 /* Preview Content */,
 			);
