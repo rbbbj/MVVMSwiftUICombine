@@ -11,6 +11,19 @@ struct UserDetailsView: View {
     }
 }
 
-#Preview {
-    UserDetailsView(user: User.mockUser)
+//#Preview {
+//    UserDetailsView(user: User.mockUser)
+//}
+
+#if DEBUG
+// MARK: - #Preview
+
+private struct PreviewView: View {
+
+    var body: some View {
+        UserDetailsView(user: User.mockUser)
+    }
 }
+
+#Preview { PreviewView() }
+#endif

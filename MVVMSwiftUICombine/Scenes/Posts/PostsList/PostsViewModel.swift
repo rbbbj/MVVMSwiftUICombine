@@ -35,6 +35,7 @@ final class PostsViewModel: PostsViewModelProtocol, ObservableObject {
             isLoading = false
         } catch {
             errorMessage = error.localizedDescription
+            isLoading = false
         }
     }
 }

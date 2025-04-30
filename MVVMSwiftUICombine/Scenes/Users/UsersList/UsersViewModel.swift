@@ -35,6 +35,7 @@ final class UsersViewModel: UsersViewModelProtocol, ObservableObject {
             isLoading = false
         } catch {
             errorMessage = error.localizedDescription
+            isLoading = false
         }
     }
 }

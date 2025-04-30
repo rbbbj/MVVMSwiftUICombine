@@ -1,9 +1,14 @@
 import SwiftUI
 
-struct PostsView: View {
+struct PostsView {
     
     @ObservedObject var viewModel: PostsViewModel
     @State private var selectedPost: Post?
+    
+    // add init() here, if present
+}
+
+extension PostsView: View {
     
     var body: some View {
         NavigationView {
@@ -47,8 +52,12 @@ struct PostsView: View {
     }
 }
 
-struct PostRow: View {
+struct PostRow {
+    
     let post: Post
+}
+
+extension PostRow: View {
     
     var body: some View {
         Text(post.title)
