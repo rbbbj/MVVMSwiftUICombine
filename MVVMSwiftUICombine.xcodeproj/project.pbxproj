@@ -17,6 +17,8 @@
 		6752A1A12CFF7830007A44E0 /* JSONPlaceholderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6752A19B2CFF7830007A44E0 /* JSONPlaceholderError.swift */; };
 		675F5D862D05D90B00FFB724 /* JSONPlaceholderFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675F5D852D05D90B00FFB724 /* JSONPlaceholderFetcher.swift */; };
 		675F5D912D064F9200FFB724 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 675F5D902D064F9200FFB724 /* RealmManager.swift */; };
+		6781DF812DC3620D006D634D /* SwiftUIModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6781DF802DC3620D006D634D /* SwiftUIModifiers.swift */; };
+		6781DF832DC36493006D634D /* SwiftUIExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6781DF822DC36493006D634D /* SwiftUIExtensions.swift */; };
 		67F411592D00700C00C2FE7E /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F411582D00700C00C2FE7E /* UsersViewModel.swift */; };
 		67F411602D00D43900C2FE7E /* SwiftfulLoadingIndicators in Frameworks */ = {isa = PBXBuildFile; productRef = 67F4115F2D00D43900C2FE7E /* SwiftfulLoadingIndicators */; };
 		67F411882D038A0800C2FE7E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F411872D038A0800C2FE7E /* MainTabView.swift */; };
@@ -66,6 +68,8 @@
 		6752A19B2CFF7830007A44E0 /* JSONPlaceholderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderError.swift; sourceTree = "<group>"; };
 		675F5D852D05D90B00FFB724 /* JSONPlaceholderFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderFetcher.swift; sourceTree = "<group>"; };
 		675F5D902D064F9200FFB724 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
+		6781DF802DC3620D006D634D /* SwiftUIModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIModifiers.swift; sourceTree = "<group>"; };
+		6781DF822DC36493006D634D /* SwiftUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensions.swift; sourceTree = "<group>"; };
 		67F411582D00700C00C2FE7E /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		67F411872D038A0800C2FE7E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		67F6638D2D2196DC00929C53 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
@@ -144,13 +148,10 @@
 		6752A1742CFF7512007A44E0 /* MVVMSwiftUICombine */ = {
 			isa = PBXGroup;
 			children = (
+				6781DF722DC35A7C006D634D /* App */,
 				6752A1AF2D004C22007A44E0 /* Scenes */,
-				67F663952D2196DC00929C53 /* Navigation */,
-				6752A19E2CFF7830007A44E0 /* Networking */,
-				6752A1A82CFFA674007A44E0 /* Persistance */,
-				6752A1982CFF77E8007A44E0 /* Helpers */,
-				6752A1732CFF7512007A44E0 /* MVVMSwiftUICombineApp.swift */,
-				6752A1712CFF7512007A44E0 /* Assets.xcassets */,
+				6781DF712DC35A48006D634D /* Core */,
+				6781DF732DC35B3D006D634D /* Resources */,
 				6752A1702CFF7512007A44E0 /* Preview Content */,
 			);
 			path = MVVMSwiftUICombine;
@@ -159,7 +160,10 @@
 		6752A1982CFF77E8007A44E0 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				67F6648E2D27201B00929C53 /* CustomViews */,
+				6781DF842DC36FB1006D634D /* SwiftExtensions */,
+				6781DF852DC36FD0006D634D /* SwiftUIExtensions */,
+				6781DF862DC37028006D634D /* SwiftUIModifiers */,
+				67F6647C2D25BA6200929C53 /* LoadingView.swift */,
 				6752A1962CFF77E8007A44E0 /* UIViewController+Ext.swift */,
 				6752A1972CFF77E8007A44E0 /* Realm+Ext.swift */,
 			);
@@ -201,6 +205,56 @@
 				67F664752D2315F500929C53 /* UserDetails */,
 			);
 			path = Users;
+			sourceTree = "<group>";
+		};
+		6781DF712DC35A48006D634D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				6752A19E2CFF7830007A44E0 /* Networking */,
+				6752A1A82CFFA674007A44E0 /* Persistance */,
+				67F663952D2196DC00929C53 /* Navigation */,
+				6752A1982CFF77E8007A44E0 /* Helpers */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		6781DF722DC35A7C006D634D /* App */ = {
+			isa = PBXGroup;
+			children = (
+				6752A1732CFF7512007A44E0 /* MVVMSwiftUICombineApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		6781DF732DC35B3D006D634D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6752A1712CFF7512007A44E0 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		6781DF842DC36FB1006D634D /* SwiftExtensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SwiftExtensions;
+			sourceTree = "<group>";
+		};
+		6781DF852DC36FD0006D634D /* SwiftUIExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				6781DF822DC36493006D634D /* SwiftUIExtensions.swift */,
+			);
+			path = SwiftUIExtensions;
+			sourceTree = "<group>";
+		};
+		6781DF862DC37028006D634D /* SwiftUIModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				6781DF802DC3620D006D634D /* SwiftUIModifiers.swift */,
+			);
+			path = SwiftUIModifiers;
 			sourceTree = "<group>";
 		};
 		67F663902D2196DC00929C53 /* Abstractions */ = {
@@ -358,14 +412,6 @@
 			path = PostsList;
 			sourceTree = "<group>";
 		};
-		67F6648E2D27201B00929C53 /* CustomViews */ = {
-			isa = PBXGroup;
-			children = (
-				67F6647C2D25BA6200929C53 /* LoadingView.swift */,
-			);
-			path = CustomViews;
-			sourceTree = "<group>";
-		};
 		7F6A7F64C06CD1279D5E6E28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -463,9 +509,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MVVMSwiftUICombine/Pods-MVVMSwiftUICombine-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MVVMSwiftUICombine/Pods-MVVMSwiftUICombine-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -511,10 +561,12 @@
 				675F5D912D064F9200FFB724 /* RealmManager.swift in Sources */,
 				67F664792D2318C100929C53 /* UserDetailsViewModel.swift in Sources */,
 				6752A1A12CFF7830007A44E0 /* JSONPlaceholderError.swift in Sources */,
+				6781DF812DC3620D006D634D /* SwiftUIModifiers.swift in Sources */,
 				6752A1992CFF77E8007A44E0 /* UIViewController+Ext.swift in Sources */,
 				67F6643D2D21E54200929C53 /* RMCompany.swift in Sources */,
 				67F664862D25F86800929C53 /* PostDetailsView.swift in Sources */,
 				67F664872D25F86800929C53 /* PostDetailsViewModel.swift in Sources */,
+				6781DF832DC36493006D634D /* SwiftUIExtensions.swift in Sources */,
 				67F6643E2D21E54200929C53 /* LocationResponse.swift in Sources */,
 				67F6643F2D21E54200929C53 /* RMUser.swift in Sources */,
 				67F664402D21E54200929C53 /* CompanyResponse.swift in Sources */,
