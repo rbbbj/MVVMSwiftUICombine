@@ -55,3 +55,30 @@ struct UserRow: View {
             .foregroundColor(.black)
     }
 }
+
+//#if DEBUG
+//// MARK: - #Preview
+//
+//struct UsersView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let mockViewModel = UsersViewModel()
+//        mockViewModel.users = [User(id: 1, name: "John Doe"), User(id: 2, name: "Jane Smith")]
+//        return UsersView(viewModel: mockViewModel)
+//    }
+//}
+//#endif
+
+
+//#if DEBUG
+//// MARK: - #Preview
+//
+//struct UsersView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let mockFetcher = JSONPlaceholderFetcher() // Replace with a mock or default implementation
+//        let mockRouter = Router() // Replace with a mock or default implementation
+//        let mockViewModel = UsersViewModel(jSONPlaceholderFetcher: mockFetcher, router: mockRouter)
+//        mockViewModel.users = [User(id: 1, name: "John Doe"), User(id: 2, name: "Jane Smith")]
+//        return UsersView(viewModel: mockViewModel)
+//    }
+//}
+//#endif
