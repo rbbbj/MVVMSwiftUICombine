@@ -56,29 +56,26 @@ struct UserRow: View {
     }
 }
 
-//#if DEBUG
-//// MARK: - #Preview
-//
-//struct UsersView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let mockViewModel = UsersViewModel()
-//        mockViewModel.users = [User(id: 1, name: "John Doe"), User(id: 2, name: "Jane Smith")]
-//        return UsersView(viewModel: mockViewModel)
-//    }
-//}
-//#endif
+#if DEBUG
+// MARK: - #Preview
 
+private class PreviewNavigationCoordinator: NavigationCoordinator {
+    func push(_ router: any Routable) {}
+    func popLast() {}
+    func popToRoot() {}
+}
 
-//#if DEBUG
-//// MARK: - #Preview
-//
-//struct UsersView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        let mockFetcher = JSONPlaceholderFetcher() // Replace with a mock or default implementation
-//        let mockRouter = Router() // Replace with a mock or default implementation
-//        let mockViewModel = UsersViewModel(jSONPlaceholderFetcher: mockFetcher, router: mockRouter)
-//        mockViewModel.users = [User(id: 1, name: "John Doe"), User(id: 2, name: "Jane Smith")]
-//        return UsersView(viewModel: mockViewModel)
-//    }
-//}
-//#endif
+struct UsersView_Previews: PreviewProvider {
+    static var previews: some View {
+        let mockFetcher = JSONPlaceholderFetcher()
+        let mockCoordinator = PreviewNavigationCoordinator()
+        let mockRouter = UsersRouter(rootCoordinator: mockCoordinator, user: User.mockUser)
+        let mockViewModel = UsersViewModel(jSONPlaceholderFetcher: mockFetcher, router: mockRouter)
+        mockViewModel.users = [
+            User(id: 1, name: "John Doe", username: "johndoe", email: "john@example.com", phone: "123-456-7890", website: "johndoe.com", address: User.mockUser.address, company: User.mockUser.company),
+            User(id: 2, name: "Jane Smith", username: "janesmith", email: "jane@example.com", phone: "987-654-3210", website: "janesmith.com", address: User.mockUser.address, company: User.mockUser.company)
+        ]
+        return UsersView(viewModel: mockViewModel)
+    }
+}
+#endif

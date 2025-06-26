@@ -65,3 +65,27 @@ extension PostRow: View {
             .foregroundColor(.black)
     }
 }
+
+#if DEBUG
+// MARK: - #Preview
+
+private class PreviewNavigationCoordinator: NavigationCoordinator {
+    func push(_ router: any Routable) {}
+    func popLast() {}
+    func popToRoot() {}
+}
+
+struct PostsView_Previews: PreviewProvider {
+    static var previews: some View {
+        let mockFetcher = JSONPlaceholderFetcher()
+        let mockCoordinator = PreviewNavigationCoordinator()
+        let mockRouter = PostsRouter(rootCoordinator: mockCoordinator, post: Post.mockPost)
+        let mockViewModel = PostsViewModel(jSONPlaceholderFetcher: mockFetcher, router: mockRouter)
+        mockViewModel.posts = [
+            Post(userId: 1, id: 1, title: "This is mock post", body: "This is a mock post body."),
+            Post(userId: 2, id: 2, title: "Another mock post", body: "Another mock post body.")
+        ]
+        return PostsView(viewModel: mockViewModel)
+    }
+}
+#endif
