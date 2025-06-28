@@ -91,6 +91,13 @@ struct User: Identifiable {
         self.company = company
     }
     
+
+    
+}
+
+//MARK: - mockUser
+
+extension User {
     static let mockUser = User(id: 9,
                                name: "Glenna Reichert",
                                username: "Delphine",
@@ -99,7 +106,6 @@ struct User: Identifiable {
                                website: "conrad.com",
                                address: Address(street: "Dayna Park", suite: "Suite 449", city: "Bartholomebury", zipcode: "76495-3109", geo: Location(lat: "24.6463", lng: "-168.8889")),
                                company: Company(name: "Yost and Sons", catchPhrase: "Switchable contextually-based project", bs: "aggregate real-time technologies"))
-    
 }
 
 //MARK: - Mapping
