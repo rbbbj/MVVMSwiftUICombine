@@ -57,6 +57,16 @@
 		67F6648D2D270DAD00929C53 /* PostDetailsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67F6648C2D270DAD00929C53 /* PostDetailsRouter.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		67D5458D2E0F313A001DEEF1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6752A1562CFF5085007A44E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6752A15D2CFF5085007A44E0;
+			remoteInfo = MVVMSwiftUICombine;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		5BA6FAF22D06B03EF9145743 /* Pods-MVVMSwiftUICombine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMSwiftUICombine.release.xcconfig"; path = "Target Support Files/Pods-MVVMSwiftUICombine/Pods-MVVMSwiftUICombine.release.xcconfig"; sourceTree = "<group>"; };
 		6684675944F5C8FCF8EAF3B2 /* Pods-MVVMSwiftUICombine.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVMSwiftUICombine.debug.xcconfig"; path = "Target Support Files/Pods-MVVMSwiftUICombine/Pods-MVVMSwiftUICombine.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,6 +84,7 @@
 		6781DF822DC36493006D634D /* SwiftUIExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIExtensions.swift; sourceTree = "<group>"; };
 		6781DF972DC5FFDC006D634D /* String+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Additions.swift"; sourceTree = "<group>"; };
 		6781DF992DC5FFFD006D634D /* Date+Additions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Additions.swift"; sourceTree = "<group>"; };
+		67D545892E0F313A001DEEF1 /* MVVMSwiftUICombineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MVVMSwiftUICombineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F411582D00700C00C2FE7E /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		67F411872D038A0800C2FE7E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		67F6638D2D2196DC00929C53 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
@@ -110,6 +121,14 @@
 		D6429C343EC50D39FCE2EB73 /* Pods_MVVMSwiftUICombine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVMSwiftUICombine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		67D5458A2E0F313A001DEEF1 /* MVVMSwiftUICombineTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MVVMSwiftUICombineTests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		6752A15B2CFF5085007A44E0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -117,6 +136,13 @@
 			files = (
 				1E59AF9C880DE01FD40F6FF2 /* Pods_MVVMSwiftUICombine.framework in Frameworks */,
 				67F411602D00D43900C2FE7E /* SwiftfulLoadingIndicators in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67D545862E0F313A001DEEF1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +156,7 @@
 				6752A15F2CFF5085007A44E0 /* Products */,
 				98829C9F86CB878E022FE30D /* Pods */,
 				7F6A7F64C06CD1279D5E6E28 /* Frameworks */,
+				67D5458A2E0F313A001DEEF1 /* MVVMSwiftUICombineTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				6752A15E2CFF5085007A44E0 /* MVVMSwiftUICombine.app */,
+				67D545892E0F313A001DEEF1 /* MVVMSwiftUICombineTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -457,6 +485,29 @@
 			productReference = 6752A15E2CFF5085007A44E0 /* MVVMSwiftUICombine.app */;
 			productType = "com.apple.product-type.application";
 		};
+		67D545882E0F313A001DEEF1 /* MVVMSwiftUICombineTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67D545912E0F313A001DEEF1 /* Build configuration list for PBXNativeTarget "MVVMSwiftUICombineTests" */;
+			buildPhases = (
+				67D545852E0F313A001DEEF1 /* Sources */,
+				67D545862E0F313A001DEEF1 /* Frameworks */,
+				67D545872E0F313A001DEEF1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				67D5458E2E0F313A001DEEF1 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				67D5458A2E0F313A001DEEF1 /* MVVMSwiftUICombineTests */,
+			);
+			name = MVVMSwiftUICombineTests;
+			packageProductDependencies = (
+			);
+			productName = MVVMSwiftUICombineTests;
+			productReference = 67D545892E0F313A001DEEF1 /* MVVMSwiftUICombineTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -464,11 +515,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1610;
+				LastSwiftUpdateCheck = 1630;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
 					6752A15D2CFF5085007A44E0 = {
 						CreatedOnToolsVersion = 16.1;
+					};
+					67D545882E0F313A001DEEF1 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = 6752A15D2CFF5085007A44E0;
 					};
 				};
 			};
@@ -490,6 +545,7 @@
 			projectRoot = "";
 			targets = (
 				6752A15D2CFF5085007A44E0 /* MVVMSwiftUICombine */,
+				67D545882E0F313A001DEEF1 /* MVVMSwiftUICombineTests */,
 			);
 		};
 /* End PBXProject section */
@@ -501,6 +557,13 @@
 			files = (
 				6752A1772CFF7512007A44E0 /* Preview Assets.xcassets in Resources */,
 				6752A1782CFF7512007A44E0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67D545872E0F313A001DEEF1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,7 +667,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		67D545852E0F313A001DEEF1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		67D5458E2E0F313A001DEEF1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6752A15D2CFF5085007A44E0 /* MVVMSwiftUICombine */;
+			targetProxy = 67D5458D2E0F313A001DEEF1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		6752A16A2CFF5087007A44E0 /* Debug */ = {
@@ -790,6 +868,42 @@
 			};
 			name = Release;
 		};
+		67D5458F2E0F313A001DEEF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RobertasBaronas.TestTestTest.MVVMSwiftUICombineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MVVMSwiftUICombine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MVVMSwiftUICombine";
+			};
+			name = Debug;
+		};
+		67D545902E0F313A001DEEF1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.RobertasBaronas.TestTestTest.MVVMSwiftUICombineTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MVVMSwiftUICombine.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MVVMSwiftUICombine";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -807,6 +921,15 @@
 			buildConfigurations = (
 				6752A16D2CFF5087007A44E0 /* Debug */,
 				6752A16E2CFF5087007A44E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67D545912E0F313A001DEEF1 /* Build configuration list for PBXNativeTarget "MVVMSwiftUICombineTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67D5458F2E0F313A001DEEF1 /* Debug */,
+				67D545902E0F313A001DEEF1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
