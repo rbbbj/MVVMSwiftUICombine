@@ -10,7 +10,7 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Users", systemImage: "person")
                 }
-
+            
             PostsCoordinatorView(coordinator: postsCoordinator)
                 .tabItem {
                     Label("Posts", systemImage: "square.and.pencil")

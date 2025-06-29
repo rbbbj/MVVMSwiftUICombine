@@ -11,39 +11,51 @@ struct UsersView {
 
 extension UsersView: View {
     
+    private var isLoadingView: some View {
+        ProgressView("Loading users...")
+            .scaleEffect(1.5)
+            .padding()
+    }
+    
+    private func errorView(errorMessage: String) -> some View {
+        VStack {
+            Text(errorMessage)
+                .foregroundColor(.red)
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Button(action: {
+                Task {
+                    await viewModel.fetchUsers()
+                }
+            }) {
+                Text("Retry")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
+        }
+    }
+    
+    private var listView: some View {
+        List(viewModel.users) { user in
+            Button {
+                coordinator.push(page: .details(user: user))
+            } label: {
+                UserRow(user: user)
+            }
+        }
+    }
+
     var body: some View {
         VStack {
             if viewModel.isLoading {
-                ProgressView("Loading users...")
-                    .scaleEffect(1.5)
-                    .padding()
+                isLoadingView
             } else if let errorMessage = viewModel.errorMessage {
-                VStack {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                    
-                    Button(action: {
-                        Task {
-                            await viewModel.fetchUsers()
-                        }
-                    }) {
-                        Text("Retry")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }
-                }
+                errorView(errorMessage: errorMessage)
             } else {
-                List(viewModel.users) { user in
-                    Button {
-                        coordinator.push(page: .details(user: user))
-                    } label: {
-                        UserRow(user: user)
-                    }
-                }
+                listView
             }
         }
         .navigationTitle("Users")

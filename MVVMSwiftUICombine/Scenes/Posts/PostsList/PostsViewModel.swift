@@ -1,6 +1,6 @@
 import SwiftUI
 
-final class PostsViewModel: /*PostsViewModelProtocol,*/ ObservableObject {
+final class PostsViewModel: ObservableObject {
 
     @Published var posts: [Post] = []
     @Published var isLoading: Bool = false
@@ -8,7 +8,7 @@ final class PostsViewModel: /*PostsViewModelProtocol,*/ ObservableObject {
     
     private let jSONPlaceholderFetcher: JSONPlaceholderFetchable
     
-    init(jSONPlaceholderFetcher: JSONPlaceholderFetchable/*, router: PostsRouter*/) {
+    init(jSONPlaceholderFetcher: JSONPlaceholderFetchable) {
         self.jSONPlaceholderFetcher = jSONPlaceholderFetcher
     }
     

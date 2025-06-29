@@ -11,39 +11,51 @@ struct PostsView {
 
 extension PostsView: View {
     
+    private var isLoadingView: some View {
+        ProgressView("Loading posts...")
+            .scaleEffect(1.5)
+            .padding()
+    }
+    
+    private func errorView(errorMessage: String) -> some View {
+        VStack {
+            Text(errorMessage)
+                .foregroundColor(.red)
+                .multilineTextAlignment(.center)
+                .padding()
+            
+            Button(action: {
+                Task {
+                    await viewModel.fetchPosts()
+                }
+            }) {
+                Text("Retry")
+                    .padding()
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+            }
+        }
+    }
+    
+    private var listView: some View {
+        List(viewModel.posts ) { post in
+            Button {
+                coordinator.push(page: .details(post: post))
+            } label: {
+                PostRow(post: post)
+            }
+        }
+    }
+    
     var body: some View {
         VStack {
             if viewModel.isLoading {
-                ProgressView("Loading posts...")
-                    .scaleEffect(1.5)
-                    .padding()
+                isLoadingView
             } else if let errorMessage = viewModel.errorMessage {
-                VStack {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .multilineTextAlignment(.center)
-                        .padding()
-                    
-                    Button(action: {
-                        Task {
-                            await viewModel.fetchPosts()
-                        }
-                    }) {
-                        Text("Retry")
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
-                    }
-                }
+                errorView(errorMessage: errorMessage)
             } else {
-                List(viewModel.posts ) { post in
-                    Button {
-                        coordinator.push(page: .details(post: post))
-                    } label: {
-                        PostRow(post: post)
-                    }
-                }
+                listView
             }
         }
         .navigationTitle("Posts")
