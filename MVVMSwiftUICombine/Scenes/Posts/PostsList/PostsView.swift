@@ -12,45 +12,43 @@ struct PostsView {
 extension PostsView: View {
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                if viewModel.isLoading {
-                    ProgressView("Loading posts...")
-                        .scaleEffect(1.5)
+        VStack {
+            if viewModel.isLoading {
+                ProgressView("Loading posts...")
+                    .scaleEffect(1.5)
+                    .padding()
+            } else if let errorMessage = viewModel.errorMessage {
+                VStack {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
                         .padding()
-                } else if let errorMessage = viewModel.errorMessage {
-                    VStack {
-                        Text(errorMessage)
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
+                    
+                    Button(action: {
+                        Task {
+                            await viewModel.fetchPosts()
+                        }
+                    }) {
+                        Text("Retry")
                             .padding()
-                        
-                        Button(action: {
-                            Task {
-                                await viewModel.fetchPosts()
-                            }
-                        }) {
-                            Text("Retry")
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
                     }
-                } else {
-                    List(viewModel.posts ) { post in
-                        Button {
-                            coordinator.push(page: .details(post: post))
-                        } label: {
-                            PostRow(post: post)
-                        }
+                }
+            } else {
+                List(viewModel.posts ) { post in
+                    Button {
+                        coordinator.push(page: .details(post: post))
+                    } label: {
+                        PostRow(post: post)
                     }
                 }
             }
-            .navigationTitle("Posts")
-            .task {
-                await viewModel.fetchPosts()
-            }
+        }
+        .navigationTitle("Posts")
+        .task {
+            await viewModel.fetchPosts()
         }
     }
 }

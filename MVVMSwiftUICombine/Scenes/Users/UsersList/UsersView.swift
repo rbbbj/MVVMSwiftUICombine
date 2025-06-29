@@ -8,49 +8,47 @@ struct UsersView {
     
     // add init() here, if present
 }
-  
+
 extension UsersView: View {
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                if viewModel.isLoading {
-                    ProgressView("Loading users...")
-                        .scaleEffect(1.5)
+        VStack {
+            if viewModel.isLoading {
+                ProgressView("Loading users...")
+                    .scaleEffect(1.5)
+                    .padding()
+            } else if let errorMessage = viewModel.errorMessage {
+                VStack {
+                    Text(errorMessage)
+                        .foregroundColor(.red)
+                        .multilineTextAlignment(.center)
                         .padding()
-                } else if let errorMessage = viewModel.errorMessage {
-                    VStack {
-                        Text(errorMessage)
-                            .foregroundColor(.red)
-                            .multilineTextAlignment(.center)
+                    
+                    Button(action: {
+                        Task {
+                            await viewModel.fetchUsers()
+                        }
+                    }) {
+                        Text("Retry")
                             .padding()
-                        
-                        Button(action: {
-                            Task {
-                                await viewModel.fetchUsers()
-                            }
-                        }) {
-                            Text("Retry")
-                                .padding()
-                                .background(Color.blue)
-                                .foregroundColor(.white)
-                                .cornerRadius(8)
-                        }
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(8)
                     }
-                } else {
-                    List(viewModel.users) { user in
-                        Button {
-                            coordinator.push(page: .details(user: user))
-                        } label: {
-                            UserRow(user: user)
-                        }
+                }
+            } else {
+                List(viewModel.users) { user in
+                    Button {
+                        coordinator.push(page: .details(user: user))
+                    } label: {
+                        UserRow(user: user)
                     }
                 }
             }
-            .navigationTitle("Users")
-            .task {
-                await viewModel.fetchUsers()
-            }
+        }
+        .navigationTitle("Users")
+        .task {
+            await viewModel.fetchUsers()
         }
     }
 }
