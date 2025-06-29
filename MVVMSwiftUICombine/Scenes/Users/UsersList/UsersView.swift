@@ -1,12 +1,18 @@
 import SwiftUI
 
-struct UsersView: View {
+struct UsersView {
     
-    @ObservedObject var viewModel: UsersViewModel
+    @EnvironmentObject private var coordinator: UsersCoordinator
+    @StateObject var viewModel = UsersViewModel(jSONPlaceholderFetcher: JSONPlaceholderFetcher())
     @State private var selectedUser: User?
     
+    // add init() here, if present
+}
+  
+extension UsersView: View {
+    
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 if viewModel.isLoading {
                     ProgressView("Loading users...")
@@ -34,8 +40,7 @@ struct UsersView: View {
                 } else {
                     List(viewModel.users) { user in
                         Button {
-                            selectedUser = user
-                            viewModel.navigateUserDetails()
+                            coordinator.push(page: .details(user: user))
                         } label: {
                             UserRow(user: user)
                         }
@@ -43,6 +48,9 @@ struct UsersView: View {
                 }
             }
             .navigationTitle("Users")
+            .task {
+                await viewModel.fetchUsers()
+            }
         }
     }
 }
@@ -56,26 +64,20 @@ struct UserRow: View {
     }
 }
 
-#if DEBUG
 // MARK: - #Preview
 
-private class PreviewNavigationCoordinator: NavigationCoordinator {
-    func push(_ router: any Routable) {}
-    func popLast() {}
-    func popToRoot() {}
-}
+#if DEBUG
 
 struct UsersView_Previews: PreviewProvider {
     static var previews: some View {
-        let mockFetcher = JSONPlaceholderFetcher()
-        let mockCoordinator = PreviewNavigationCoordinator()
-        let mockRouter = UsersRouter(rootCoordinator: mockCoordinator, user: User.mockUser)
-        let mockViewModel = UsersViewModel(jSONPlaceholderFetcher: mockFetcher, router: mockRouter)
-        mockViewModel.users = [
-            User(id: 1, name: "John Doe", username: "johndoe", email: "john@example.com", phone: "123-456-7890", website: "johndoe.com", address: User.mockUser.address, company: User.mockUser.company),
-            User(id: 2, name: "Jane Smith", username: "janesmith", email: "jane@example.com", phone: "987-654-3210", website: "janesmith.com", address: User.mockUser.address, company: User.mockUser.company)
-        ]
-        return UsersView(viewModel: mockViewModel)
+        let coordinator = UsersCoordinator()
+        
+        let viewModel = UsersViewModel(jSONPlaceholderFetcher: JSONPlaceholderFetcher())
+        viewModel.users = [User.mockUser, User.mockUser]
+        
+        return UsersView(viewModel: viewModel)
+            .environmentObject(coordinator)
     }
 }
+
 #endif

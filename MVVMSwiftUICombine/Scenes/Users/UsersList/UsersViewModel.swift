@@ -1,29 +1,15 @@
 import SwiftUI
-import SwiftfulLoadingIndicators
 
-protocol UsersViewModelProtocol {
-    func navigateUserDetails()
-}
-
-final class UsersViewModel: UsersViewModelProtocol, ObservableObject {
+final class UsersViewModel: ObservableObject {
     
     @Published var users: [User] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
 
-    private let router: UsersRouter
     private let jSONPlaceholderFetcher: JSONPlaceholderFetchable
     
-    init(jSONPlaceholderFetcher: JSONPlaceholderFetchable, router: UsersRouter) {
+    init(jSONPlaceholderFetcher: JSONPlaceholderFetchable) {
         self.jSONPlaceholderFetcher = jSONPlaceholderFetcher
-        self.router = router
-        Task {
-            await fetchUsers()
-        }
-    }
-    
-    func navigateUserDetails() {
-        self.router.routeToUserDetails()
     }
     
     @MainActor

@@ -10,20 +10,3 @@ struct UserDetailsView: View {
         Text("\(user.phone)")
     }
 }
-
-//#Preview {
-//    UserDetailsView(user: User.mockUser)
-//}
-
-#if DEBUG
-// MARK: - #Preview
-
-private struct PreviewView: View {
-
-    var body: some View {
-        UserDetailsView(user: User.mockUser)
-    }
-}
-
-#Preview { PreviewView() }
-#endif

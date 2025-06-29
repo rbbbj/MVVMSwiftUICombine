@@ -1,0 +1,21 @@
+import SwiftUI
+
+struct UsersCoordinatorView: View {
+    @ObservedObject var coordinator: UsersCoordinator
+    
+    var body: some View {
+        NavigationStack(path: $coordinator.path) {
+            coordinator.build(page: .main)
+                .navigationDestination(for: UsersPages.self) { page in
+                    coordinator.build(page: page)
+                }
+                .sheet(item: $coordinator.sheet) { sheet in
+                    coordinator.buildSheet(sheet: sheet)
+                }
+                .fullScreenCover(item: $coordinator.fullScreenCover) { item in
+                    coordinator.buildCover(cover: item)
+                }
+        }
+        .environmentObject(coordinator)
+    }
+}

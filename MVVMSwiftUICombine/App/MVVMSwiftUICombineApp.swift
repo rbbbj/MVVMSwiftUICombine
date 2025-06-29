@@ -12,7 +12,7 @@ struct MVVMSwiftUICombineApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MainTabView(firstAppRouter: .init(), secondAppRouter: .init())
+            MainTabView()
         }
     }
 }

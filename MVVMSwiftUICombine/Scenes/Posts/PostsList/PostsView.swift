@@ -2,7 +2,8 @@ import SwiftUI
 
 struct PostsView {
     
-    @ObservedObject var viewModel: PostsViewModel
+    @EnvironmentObject private var coordinator: PostsCoordinator
+    @StateObject var viewModel = PostsViewModel(jSONPlaceholderFetcher: JSONPlaceholderFetcher())
     @State private var selectedPost: Post?
     
     // add init() here, if present
@@ -11,7 +12,7 @@ struct PostsView {
 extension PostsView: View {
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack {
                 if viewModel.isLoading {
                     ProgressView("Loading posts...")
@@ -39,8 +40,7 @@ extension PostsView: View {
                 } else {
                     List(viewModel.posts ) { post in
                         Button {
-                            selectedPost = post
-                            viewModel.navigateToPostDetails()
+                            coordinator.push(page: .details(post: post))
                         } label: {
                             PostRow(post: post)
                         }
@@ -48,12 +48,14 @@ extension PostsView: View {
                 }
             }
             .navigationTitle("Posts")
+            .task {
+                await viewModel.fetchPosts()
+            }
         }
     }
 }
 
 struct PostRow {
-    
     let post: Post
 }
 
@@ -66,26 +68,20 @@ extension PostRow: View {
     }
 }
 
-#if DEBUG
 // MARK: - #Preview
 
-private class PreviewNavigationCoordinator: NavigationCoordinator {
-    func push(_ router: any Routable) {}
-    func popLast() {}
-    func popToRoot() {}
-}
+#if DEBUG
 
 struct PostsView_Previews: PreviewProvider {
     static var previews: some View {
-        let mockFetcher = JSONPlaceholderFetcher()
-        let mockCoordinator = PreviewNavigationCoordinator()
-        let mockRouter = PostsRouter(rootCoordinator: mockCoordinator, post: Post.mockPost)
-        let mockViewModel = PostsViewModel(jSONPlaceholderFetcher: mockFetcher, router: mockRouter)
-        mockViewModel.posts = [
-            Post(userId: 1, id: 1, title: "This is mock post", body: "This is a mock post body."),
-            Post(userId: 2, id: 2, title: "Another mock post", body: "Another mock post body.")
-        ]
-        return PostsView(viewModel: mockViewModel)
+        let coordinator = UsersCoordinator()
+        
+        let viewModel = PostsViewModel(jSONPlaceholderFetcher: JSONPlaceholderFetcher())
+        viewModel.posts = [Post.mockPost, Post.mockPost]
+        
+        return PostsView(viewModel: viewModel)
+            .environmentObject(coordinator)
     }
 }
+
 #endif

@@ -57,3 +57,15 @@ extension Post {
 extension Post {
     func asRealm() -> RMPost { return RMPost(from: self) }
 }
+
+//MARK: - Hashable
+
+extension Post: Hashable {
+    static func == (lhs: Post, rhs: Post) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

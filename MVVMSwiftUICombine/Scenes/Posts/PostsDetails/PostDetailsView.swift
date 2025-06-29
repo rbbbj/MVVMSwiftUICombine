@@ -17,16 +17,3 @@ extension PostDetailsView: View {
             .padding()
     }
 }
-
-#if DEBUG
-// MARK: - #Preview
-
-private struct PreviewView: View {
-
-    var body: some View {
-        PostDetailsView(post: Post.mockPost)
-    }
-}
-
-#Preview { PreviewView() }
-#endif

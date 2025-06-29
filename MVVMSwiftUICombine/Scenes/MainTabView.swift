@@ -1,36 +1,20 @@
 import SwiftUI
 
 struct MainTabView: View {
-    
-    @StateObject var firstAppRouter: AppRouter
-    @StateObject var secondAppRouter: AppRouter
-    
-    var body: some View {
-        
-        TabView {
-            NavigationStack(path: $firstAppRouter.paths) {
-                firstAppRouter.resolveFirstTabInitialRouter().makeView()
-                    .navigationDestination(for: AnyRoutable.self) { router in
-                        router.makeView()
-                    }
-            }
-            .tabItem {
-                Label("Users", systemImage: "person")
-            }
-            NavigationStack(path: $secondAppRouter.paths) {
-                secondAppRouter.resolveSecondTabInitialRouter().makeView()
-                    .navigationDestination(for: AnyRoutable.self) { router in
-                        router.makeView()
-                    }
-            }
-            .tabItem {
-                Label("Posts", systemImage: "square.and.pencil")
-            }
-        }
-        
-    }
-}
+    @StateObject private var usersCoordinator = UsersCoordinator()
+    @StateObject private var postsCoordinator = PostsCoordinator()
 
-#Preview {
-    MainTabView(firstAppRouter: .init(), secondAppRouter: .init())
+    var body: some View {
+        TabView {
+            UsersCoordinatorView(coordinator: usersCoordinator)
+                .tabItem {
+                    Label("Users", systemImage: "person")
+                }
+
+            PostsCoordinatorView(coordinator: postsCoordinator)
+                .tabItem {
+                    Label("Posts", systemImage: "square.and.pencil")
+                }
+        }
+    }
 }
