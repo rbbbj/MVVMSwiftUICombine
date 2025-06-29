@@ -46,6 +46,11 @@ extension PostsView: View {
                 PostRow(post: post)
             }
         }
+        .refreshable {
+            Task {
+                await viewModel.fetchPosts()
+            }
+        }
     }
     
     var body: some View {

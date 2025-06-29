@@ -46,6 +46,11 @@ extension UsersView: View {
                 UserRow(user: user)
             }
         }
+        .refreshable {
+            Task {
+                await viewModel.fetchUsers()
+            }
+        }
     }
 
     var body: some View {
