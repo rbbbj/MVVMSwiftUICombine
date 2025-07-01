@@ -88,7 +88,6 @@ struct UsersView_Previews: PreviewProvider {
         let coordinator = UsersCoordinator()
         
         let viewModel = UsersViewModel(jSONPlaceholderFetcher: JSONPlaceholderFetcher())
-        viewModel.users = [User.mockUser, User.mockUser]
         
         return UsersView(viewModel: viewModel)
             .environmentObject(coordinator)

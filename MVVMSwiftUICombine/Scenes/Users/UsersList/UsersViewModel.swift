@@ -2,9 +2,9 @@ import SwiftUI
 
 final class UsersViewModel: ObservableObject {
     
-    @Published var users: [User] = []
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String?
+    @Published private(set) var users: [User] = []
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var errorMessage: String?
 
     private let jSONPlaceholderFetcher: JSONPlaceholderFetchable
     

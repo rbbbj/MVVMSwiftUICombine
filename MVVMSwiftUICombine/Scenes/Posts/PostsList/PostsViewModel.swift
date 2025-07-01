@@ -2,9 +2,9 @@ import SwiftUI
 
 final class PostsViewModel: ObservableObject {
 
-    @Published var posts: [Post] = []
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String?
+    @Published private(set) var posts: [Post] = []
+    @Published private(set) var isLoading: Bool = false
+    @Published private(set) var errorMessage: String?
     
     private let jSONPlaceholderFetcher: JSONPlaceholderFetchable
     
