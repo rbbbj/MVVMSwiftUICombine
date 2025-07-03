@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 final class PostsViewModel: ObservableObject {
 
@@ -7,21 +8,38 @@ final class PostsViewModel: ObservableObject {
     @Published private(set) var errorMessage: String?
     
     private let jSONPlaceholderFetcher: JSONPlaceholderFetchable
+    private var cancellables = Set<AnyCancellable>()
     
     init(jSONPlaceholderFetcher: JSONPlaceholderFetchable) {
         self.jSONPlaceholderFetcher = jSONPlaceholderFetcher
     }
     
-    @MainActor
-    func fetchPosts() async {
+    // Combine version of fetchPosts
+    func fetchPosts() {
         isLoading = true
         errorMessage = nil
-        do {
-            posts = try await jSONPlaceholderFetcher.fetchPosts()
-            isLoading = false
-        } catch {
-            errorMessage = error.localizedDescription
-            isLoading = false
+        
+        Future<[Post], Error> { [weak self] promise in
+            guard let self = self else { return }
+            Task {
+                do {
+                    let posts = try await self.jSONPlaceholderFetcher.fetchPosts()
+                    promise(.success(posts))
+                } catch {
+                    promise(.failure(error))
+                }
+            }
         }
+        .receive(on: DispatchQueue.main)
+        .sink { [weak self] completion in
+            guard let self = self else { return }
+            self.isLoading = false
+            if case let .failure(error) = completion {
+                self.errorMessage = error.localizedDescription
+            }
+        } receiveValue: { [weak self] posts in
+            self?.posts = posts
+        }
+        .store(in: &cancellables)
     }
 }
