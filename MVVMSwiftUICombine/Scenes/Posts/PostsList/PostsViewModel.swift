@@ -15,6 +15,7 @@ final class PostsViewModel: ObservableObject {
     }
     
     // Combine version of fetchPosts
+    // (see UsersViewModel fetchUsers() for non-reactive version of the same)
     func fetchPosts() {
         isLoading = true
         errorMessage = nil
