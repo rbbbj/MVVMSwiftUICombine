@@ -26,7 +26,7 @@ extension PostsView: View {
             
             Button(action: {
                 Task {
-                    await viewModel.fetchPosts()
+                    viewModel.fetchPosts()
                 }
             }) {
                 Text("Retry")
@@ -48,7 +48,7 @@ extension PostsView: View {
         }
         .refreshable {
             Task {
-                await viewModel.fetchPosts()
+                viewModel.fetchPosts()
             }
         }
     }
@@ -65,7 +65,7 @@ extension PostsView: View {
         }
         .navigationTitle("Posts")
         .task {
-            await viewModel.fetchPosts()
+            viewModel.fetchPosts()
         }
     }
 }
